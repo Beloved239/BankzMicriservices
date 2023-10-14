@@ -13,16 +13,16 @@ import lombok.Data;
 @Data
 public class CardDto {
     @NotEmpty(message = "Mobile Number can not be a null or empty")
-    @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile Number must be 10 digits")
+    @Pattern(regexp="(^$|[0-9]{11})",message = "Mobile Number must be 11 digits")
     @Schema(
-            description = "Mobile Number of Customer", example = "4354437687"
+            description = "Mobile Number of Customer", example = "07012345678"
     )
-    private String mobileNumber;
+    private String phoneNumber;
 
     @NotEmpty(message = "Card Number can not be a null or empty")
-    @Pattern(regexp="(^$|[0-9]{12})",message = "CardNumber must be 12 digits")
+    @Pattern(regexp="(^$|[0-9]{16})",message = "CardNumber must be 16 digits")
     @Schema(
-            description = "Card Number of the customer", example = "100646930341"
+            description = "Card Number of the customer", example = "1006469303411234"
     )
     private String cardNumber;
 
