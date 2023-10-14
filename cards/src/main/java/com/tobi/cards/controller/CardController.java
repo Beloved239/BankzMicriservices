@@ -22,7 +22,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author Eazy Bytes
+ * @author Oluwatobi
  */
 
 @Tag(
@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.*;
         description = "CRUD REST APIs in Dollar Bank to CREATE, UPDATE, FETCH AND DELETE card details"
 )
 @RestController
-@RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(path = "/api/card", produces = {MediaType.APPLICATION_JSON_VALUE})
 @AllArgsConstructor
 @Validated
 public class CardController {
@@ -56,9 +56,9 @@ public class CardController {
     )
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createCard(@Valid @RequestParam
-                                                  @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
-                                                  String mobileNumber) {
-        iCardsService.createCard(mobileNumber);
+                                                  @Pattern(regexp="(^$|[0-9]{11})",message = "Mobile number must be 11 digits")
+                                                  String phoneNumber) {
+        iCardsService.createCard(phoneNumber);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(new ResponseDto(CardConstants.STATUS_201, CardConstants.MESSAGE_201));
@@ -83,9 +83,9 @@ public class CardController {
     })
     @GetMapping("/fetch")
     public ResponseEntity<CardDto> fetchCardDetails(@RequestParam
-                                                     @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
-                                                     String mobileNumber) {
-        CardDto cardsDto = iCardsService.fetchCard(mobileNumber);
+                                                     @Pattern(regexp="(^$|[0-9]{11})",message = "Mobile number must be 10 digits")
+                                                     String phoneNumber) {
+        CardDto cardsDto = iCardsService.fetchCard(phoneNumber);
         return ResponseEntity.status(HttpStatus.OK).body(cardsDto);
     }
 
@@ -147,9 +147,9 @@ public class CardController {
     })
     @DeleteMapping("/delete")
     public ResponseEntity<ResponseDto> deleteCardDetails(@RequestParam
-                                                         @Pattern(regexp="(^$|[0-9]{10})",message = "Phone number must be 10 digits")
-                                                         String mobileNumber) {
-        boolean isDeleted = iCardsService.deleteCard(mobileNumber);
+                                                         @Pattern(regexp="(^$|[0-9]{11})",message = "Phone number must be 11 digits")
+                                                         String phoneNumber) {
+        boolean isDeleted = iCardsService.deleteCard(phoneNumber);
         if(isDeleted) {
             return ResponseEntity
                     .status(HttpStatus.OK)

@@ -8,10 +8,13 @@ import com.tobi.cards.exception.ResourceNotFoundException;
 import com.tobi.cards.mapper.CardMapper;
 import com.tobi.cards.repository.CardRepository;
 import com.tobi.cards.service.ICardService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.Random;
-
+@Service
+@AllArgsConstructor
 public class CardServiceImpl implements ICardService {
     private CardRepository cardsRepository;
 
@@ -20,7 +23,7 @@ public class CardServiceImpl implements ICardService {
      */
     @Override
     public void createCard(String phoneNumber) {
-        Optional<Cards> optionalCards= cardsRepository.findByMobileNumber(phoneNumber);
+        Optional<Cards> optionalCards= cardsRepository.findByPhoneNumber(phoneNumber);
         if(optionalCards.isPresent()){
             throw new CardAlreadyExistException("Card already registered with given phoneNumber "+phoneNumber);
         }
@@ -33,7 +36,7 @@ public class CardServiceImpl implements ICardService {
      */
     private Cards createNewCard(String phoneNumber) {
         Cards newCard = new Cards();
-        long randomCardNumber = 100000000000L + new Random().nextInt(900000000);
+        long randomCardNumber = 1000000000000000L + new Random().nextInt(900000000);
         newCard.setCardNumber(Long.toString(randomCardNumber));
         newCard.setPhoneNumber(phoneNumber);
         newCard.setCardType(CardConstants.CREDIT_CARD);
@@ -50,7 +53,7 @@ public class CardServiceImpl implements ICardService {
      */
     @Override
     public CardDto fetchCard(String mobileNumber) {
-        Cards cards = cardsRepository.findByMobileNumber(mobileNumber).orElseThrow(
+        Cards cards = cardsRepository.findByPhoneNumber(mobileNumber).orElseThrow(
                 () -> new ResourceNotFoundException("Card", "mobileNumber", mobileNumber)
         );
         return CardMapper.mapToCardsDto(cards, new CardDto());
@@ -76,7 +79,7 @@ public class CardServiceImpl implements ICardService {
      */
     @Override
     public boolean deleteCard(String mobileNumber) {
-        Cards cards = cardsRepository.findByMobileNumber(mobileNumber).orElseThrow(
+        Cards cards = cardsRepository.findByPhoneNumber(mobileNumber).orElseThrow(
                 () -> new ResourceNotFoundException("Card", "mobileNumber", mobileNumber)
         );
         cardsRepository.deleteById(cards.getCardId());
