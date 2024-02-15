@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+
+build:
+  version: "1.0"
+
+accounts:
+  message: "Welcome to DollarBank accounts related prod APIs "
+  contactDetails:
+    name: "Oluwatobi Adebanjo - Product Owner"
+    email: "oluwatobi@dollarbank.com"
+  onCallSupport:
+    - (234) 7060949659
+    - (234) 8134949559

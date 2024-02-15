@@ -8,6 +8,7 @@ import com.tobi.loans.exception.ResourceNotFoundException;
 import com.tobi.loans.mapper.LoanMapper;
 import com.tobi.loans.repository.LoanRepository;
 import com.tobi.loans.service.ILoanService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import java.util.Optional;
 import java.util.Random;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class LoanServiceImpl implements ILoanService {
     private LoanRepository loansRepository;
 
